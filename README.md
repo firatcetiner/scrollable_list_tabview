@@ -1,5 +1,8 @@
 # scrollable_list_tabview
 
+[![Build Status](https://travis-ci.com/firatcetiner/scrollable_list_tabview.svg?branch=main)](https://travis-ci.com/firatcetiner/scrollable_list_tabview)
+[![Codemagic build status](https://api.codemagic.io/apps/5fab163fe55b87e07bbfb1c6/5fab163fe55b87e07bbfb1c5/status_badge.svg)](https://codemagic.io/apps/5fab163fe55b87e07bbfb1c6/5fab163fe55b87e07bbfb1c5/latest_build)
+[![Coverage Status](https://coveralls.io/repos/github/firatcetiner/scrollable_list_tabview/badge.svg?branch=main)](https://coveralls.io/github/firatcetiner/scrollable_list_tabview?branch=main)
 
 A Flutter widget which syncronize a ScrollView and a custom tab view.
 
