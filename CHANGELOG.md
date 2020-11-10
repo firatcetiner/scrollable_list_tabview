@@ -6,4 +6,8 @@
 3. Syncronize inner scroll view and tab view.
 
 
+# [0.1.1] - Syntax Changes
+
+This release contains minor syntax changes and new demo gif.
+
 
