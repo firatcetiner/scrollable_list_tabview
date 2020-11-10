@@ -35,16 +35,16 @@ void main() {
     expect(widget.tabHeight, 50);
     expect(widget.tabs.length, 1);
   });
-  
+
   test('Property test for tab models', () {
     var tab = ListTab(label: Text('A label'));
     var scrollableListTab = ScrollableListTab(
-      tab: tab,
-      body: ListView(
-        key: Key('list_view'),
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-      ));
+        tab: tab,
+        body: ListView(
+          key: Key('list_view'),
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+        ));
     expect(scrollableListTab.tab, tab);
     expect(tab.borderColor, Colors.grey);
     expect(tab.showIconOnList, false);

@@ -62,24 +62,30 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
                   valueListenable: _index,
                   builder: (_, i, __) {
                     var selected = index == i;
-                    var borderColor = selected ? tab.activeBackgroundColor : Theme.of(context).dividerColor;
+                    var borderColor = selected
+                        ? tab.activeBackgroundColor
+                        : Theme.of(context).dividerColor;
                     return Container(
                       height: 32,
                       margin: _kTabMargin,
                       decoration: BoxDecoration(
-                        color: selected ? tab.activeBackgroundColor : tab.inactiveBackgroundColor,
-                        borderRadius: tab.borderRadius
-                      ),
+                          color: selected
+                              ? tab.activeBackgroundColor
+                              : tab.inactiveBackgroundColor,
+                          borderRadius: tab.borderRadius),
                       child: OutlineButton(
                         textColor: selected ? Colors.white : Colors.grey,
-                        color: selected ? tab.activeBackgroundColor : tab.inactiveBackgroundColor,
+                        color: selected
+                            ? tab.activeBackgroundColor
+                            : tab.inactiveBackgroundColor,
                         disabledBorderColor: borderColor,
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         borderSide: BorderSide(
                           width: 1,
                           color: borderColor,
                         ),
-                        shape: RoundedRectangleBorder(borderRadius: tab.borderRadius),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: tab.borderRadius),
                         highlightedBorderColor: borderColor,
                         highlightElevation: 0,
                         child: _buildLabel(index),
@@ -133,6 +139,7 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
 
   void _onInnerViewScrolled() async {
     var positions = _bodyPositionsListener.itemPositions.value;
+
     /// Target [ScrollView] is not attached to any views and/or has no listeners.
     if (positions == null || positions.isEmpty) return;
 
