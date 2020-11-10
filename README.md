@@ -9,7 +9,7 @@ A Flutter widget which syncronize a ScrollView and a custom tab view.
 The main idea is to create a custom tab view syncronizing with inner ScrollView. The scroll activity will trigger custom tab view at the top to follow the index of the inner scroll view widget.
 
 
-![Demo](https://media2.giphy.com/media/G4lcJfMZH16fVj376z/giphy.gif)
+![Demo](https://media2.giphy.com/media/VkrHmPClMEYkBj5Mkg/giphy.gif)
 
 Tested on Android and Web but not iOS. Theoritacially it should work on iOS devices too, since this package contains nothing but pure Dart and Flutter components.
 ## Installation
