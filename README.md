@@ -11,7 +11,6 @@ The main idea is to create a custom tab view syncronizing with inner ScrollView.
 
 ![Demo](https://media2.giphy.com/media/VkrHmPClMEYkBj5Mkg/giphy.gif)
 
-Tested on Android and Web but not iOS. Theoritacially it should work on iOS devices too, since this package contains nothing but pure Dart and Flutter components.
 ## Installation
 Add dependency for package on your pubspec.yaml:
 

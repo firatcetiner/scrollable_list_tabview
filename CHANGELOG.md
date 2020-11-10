@@ -10,4 +10,7 @@
 
 This release contains minor syntax changes and new demo gif.
 
+# [0.1.2] - Syntax Changes
+
+Update the documentation.
 
