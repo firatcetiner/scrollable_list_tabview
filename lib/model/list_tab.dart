@@ -11,7 +11,12 @@ class ListTab {
       this.inactiveBackgroundColor = Colors.transparent,
       this.showIconOnList = false,
       this.borderColor = Colors.grey})
-      : assert(label != null);
+        : assert(label != null),
+        assert(borderRadius != null),
+        assert(activeBackgroundColor != null),
+        assert(inactiveBackgroundColor != null),
+        assert(showIconOnList != null),
+        assert(borderColor != null);
 
   /// Trailing widget for a tab, typically an [Icon].
   final Widget icon;

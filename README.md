@@ -4,9 +4,9 @@
 [![Codemagic build status](https://api.codemagic.io/apps/5fab163fe55b87e07bbfb1c6/5fab163fe55b87e07bbfb1c5/status_badge.svg)](https://codemagic.io/apps/5fab163fe55b87e07bbfb1c6/5fab163fe55b87e07bbfb1c5/latest_build)
 [![Coverage Status](https://coveralls.io/repos/github/firatcetiner/scrollable_list_tabview/badge.svg?branch=main)](https://coveralls.io/github/firatcetiner/scrollable_list_tabview?branch=main)
 
-A Flutter widget which syncronize a ScrollView and a custom tab view.
+A Flutter widget which synchronize a ScrollView and a custom tab view.
 
-The main idea is to create a custom tab view syncronizing with inner ScrollView. The scroll activity will trigger custom tab view at the top to follow the index of the inner scroll view widget.
+The main idea is to create a custom tab view syncrinizing with inner ScrollView. The scroll activity will trigger custom tab view at the top to follow the index of the inner scroll view widget.
 
 
 ![Demo](https://media2.giphy.com/media/VkrHmPClMEYkBj5Mkg/giphy.gif)
@@ -44,6 +44,10 @@ Then ScrollableListTabView will take a list of ScrollableListTab as an argument.
 |--|--|
 | `List<ScrollableListTab> tabs`|List of tabs to be built.|
 |`double height`|Height of the tab at the top of the view.|
+| `Duration tabAnimationDuration`|Duration of tab change animation.|
+|`Duration bodyAnimationDuration`|Duration of inner scroll view animation.|
+| `Curve tabAnimationCurve`|Animation curve used when animating tab change.|
+|`Curve bodyAnimationCurve`|Animation curve used when changing index of inner ScrollView(s).|
 
 ## Example
 
