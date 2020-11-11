@@ -34,15 +34,14 @@ void main() {
         findsOneWidget);
     expect(widget.tabHeight, 50);
     expect(widget.tabs.length, 1);
-    
-    
+
     /// Test animation curves
     expect(widget.tabAnimationCurve, Curves.decelerate);
     expect(widget.bodyAnimationCurve, Curves.decelerate);
 
     /// Test animation durations
     const duration = const Duration(milliseconds: 150);
-    
+
     expect(widget.tabAnimationDuration, duration);
     expect(widget.tabAnimationDuration, duration);
   });

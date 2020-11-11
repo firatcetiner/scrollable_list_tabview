@@ -39,6 +39,9 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: ScrollableListTabView(
         tabHeight: 48,
+        bodyAnimationDuration: const Duration(milliseconds: 150),
+        tabAnimationCurve: Curves.easeOut,
+        tabAnimationDuration: const Duration(milliseconds: 200),
         tabs: [
           ScrollableListTab(
               tab: ListTab(label: Text('Label 1'), icon: Icon(Icons.group)),

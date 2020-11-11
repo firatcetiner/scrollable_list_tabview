@@ -22,4 +22,11 @@ This release includes the following improvements and features:
 2. Add animation duration parameter for scroll animations of both tab and scrollview.
 3. Add necessary error checking assertions.
 
+# [0.1.3+1] - Formatting changes
+
+
+# [0.1.4] - Syntax improvements
+
+This release includes a new .APK and example shows the usage of curves and animations.
+
 

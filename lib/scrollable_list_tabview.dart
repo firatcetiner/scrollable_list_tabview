@@ -179,16 +179,22 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
   Future<void> _handleTabScroll(int index) async {
     _index.value = index;
     await _tabScrollController.scrollTo(
-        index: _index.value, duration: widget.tabAnimationDuration, curve: widget.tabAnimationCurve);
+        index: _index.value,
+        duration: widget.tabAnimationDuration,
+        curve: widget.tabAnimationCurve);
   }
 
   /// When a new tab has been pressed both [_tabScrollController] and
   /// [_bodyScrollController] should notify their views.
   void _onTabPressed(int index) async {
     await _tabScrollController.scrollTo(
-        index: index, duration: widget.tabAnimationDuration, curve: widget.tabAnimationCurve);
+        index: index,
+        duration: widget.tabAnimationDuration,
+        curve: widget.tabAnimationCurve);
     await _bodyScrollController.scrollTo(
-        index: index, duration: widget.bodyAnimationDuration, curve: widget.bodyAnimationCurve);
+        index: index,
+        duration: widget.bodyAnimationDuration,
+        curve: widget.bodyAnimationCurve);
     _index.value = index;
   }
 
