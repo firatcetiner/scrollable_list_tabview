@@ -1,6 +1,5 @@
 library scrollable_list_tabview;
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -96,21 +95,22 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
                               ? tab.activeBackgroundColor
                               : tab.inactiveBackgroundColor,
                           borderRadius: tab.borderRadius),
-                      child: OutlineButton(
-                        textColor: selected ? Colors.white : Colors.grey,
-                        color: selected
-                            ? tab.activeBackgroundColor
-                            : tab.inactiveBackgroundColor,
-                        disabledBorderColor: borderColor,
-                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        borderSide: BorderSide(
-                          width: 1,
-                          color: borderColor,
-                        ),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: tab.borderRadius),
-                        highlightedBorderColor: borderColor,
-                        highlightElevation: 0,
+                      child: OutlinedButton(
+                        style: ButtonStyle(
+                            foregroundColor: MaterialStateProperty.all(
+                                selected ? Colors.white : Colors.grey),
+                            backgroundColor: MaterialStateProperty.all(selected
+                                ? tab.activeBackgroundColor
+                                : tab.inactiveBackgroundColor),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            side: MaterialStateProperty.all(BorderSide(
+                              width: 1,
+                              color: borderColor,
+                            )),
+                            elevation: MaterialStateProperty.all(0),
+                            shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                    borderRadius: tab.borderRadius))),
                         child: _buildLabel(index),
                         onPressed: () => _onTabPressed(index),
                       ),

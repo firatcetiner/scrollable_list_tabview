@@ -6,7 +6,7 @@
 
 A Flutter widget which synchronize a ScrollView and a custom tab view.
 
-The main idea is to create a custom tab view syncrinizing with inner ScrollView. The scroll activity will trigger custom tab view at the top to follow the index of the inner scroll view widget.
+The main idea is to create a custom tab view synchronizing with inner ScrollView. The scroll activity will trigger custom tab view at the top to follow the index of the inner scroll view widget.
 
 
 ![Demo](https://media2.giphy.com/media/VkrHmPClMEYkBj5Mkg/giphy.gif)
@@ -30,7 +30,7 @@ To use this widget we must first define how our tabs will look like.
 |`bool showIconInList`| Decide whether show icon widget in the scrollable view.|
 | `Color borderColor`| Color of the border of tab when its not selected|
 
-Then we can use LisTab in ScollableListTab.
+Then we can use LisTab in ScrollableListTab.
 ### ScrollableListTab
 |Parameter| Definition |
 |--|--|
