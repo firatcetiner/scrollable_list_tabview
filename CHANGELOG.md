@@ -29,4 +29,12 @@ This release includes the following improvements and features:
 
 This release includes a new .APK and example shows the usage of curves and animations.
 
+# [0.1.5] - Bug fix
+
+Remove the usage of old OutlineButton and use OutlinedButton instead.
+
+# [0.1.6] - Minor bug fixes
+
+Fix issue with ListTab's parameter of showIconOnList not working properly.
+
 

@@ -44,7 +44,10 @@ class _MyHomePageState extends State<MyHomePage> {
         tabAnimationDuration: const Duration(milliseconds: 200),
         tabs: [
           ScrollableListTab(
-              tab: ListTab(label: Text('Label 1'), icon: Icon(Icons.group)),
+              tab: ListTab(
+                  label: Text('Label 1'),
+                  icon: Icon(Icons.group),
+                  showIconOnList: false),
               body: ListView.builder(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),

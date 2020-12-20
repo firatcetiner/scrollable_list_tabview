@@ -111,7 +111,7 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
                             shape: MaterialStateProperty.all(
                                 RoundedRectangleBorder(
                                     borderRadius: tab.borderRadius))),
-                        child: _buildLabel(index),
+                        child: _buildTab(index),
                         onPressed: () => _onTabPressed(index),
                       ),
                     );
@@ -130,7 +130,7 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
               children: [
                 Padding(
                   padding: _kTabMargin.add(const EdgeInsets.all(5.0)),
-                  child: _buildLabel(index),
+                  child: _buildInnerTab(index),
                 ),
                 Flexible(
                   child: widget.tabs[index].body,
@@ -143,20 +143,41 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
     );
   }
 
-  Widget _buildLabel(int index) {
+  Widget _buildInnerTab(int index) {
     var tab = widget.tabs[index].tab;
+    var textStyle = Theme.of(context)
+        .textTheme
+        .bodyText1
+        .copyWith(fontWeight: FontWeight.w500);
     return Builder(
       builder: (_) {
-        if (tab.icon == null)
-          return tab.label;
-        else if (!tab.showIconOnList) return tab.label;
-        return Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [tab.icon, _kSizedBoxW8, tab.label],
+        if (tab.icon == null) return tab.label;
+        if (!tab.showIconOnList)
+          return DefaultTextStyle(style: textStyle, child: tab.label);
+        return DefaultTextStyle(
+          style: Theme.of(context)
+              .textTheme
+              .bodyText1
+              .copyWith(fontWeight: FontWeight.w500),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [tab.icon, _kSizedBoxW8, tab.label],
+          ),
         );
       },
+    );
+  }
+
+  Widget _buildTab(int index) {
+    var tab = widget.tabs[index].tab;
+    if (tab.icon == null) return tab.label;
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: [tab.icon, _kSizedBoxW8, tab.label],
     );
   }
 
