@@ -38,3 +38,7 @@ Remove the usage of old OutlineButton and use OutlinedButton instead.
 Fix issue with ListTab's parameter of showIconOnList not working properly.
 
 
+# [0.2.0-nullsafety] - Null Safety
+
+This version opts-in sound null safety for both the package and the example project, along with some minor performance improvements and additional widget tests.
+

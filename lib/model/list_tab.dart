@@ -2,24 +2,18 @@ import 'package:flutter/material.dart';
 
 class ListTab {
   /// Create a new [ListTab]
-  const ListTab(
-      {Key key,
-      this.icon,
-      @required this.label,
-      this.borderRadius = const BorderRadius.all(const Radius.circular(5.0)),
-      this.activeBackgroundColor = Colors.blue,
-      this.inactiveBackgroundColor = Colors.transparent,
-      this.showIconOnList = false,
-      this.borderColor = Colors.grey})
-      : assert(label != null),
-        assert(borderRadius != null),
-        assert(activeBackgroundColor != null),
-        assert(inactiveBackgroundColor != null),
-        assert(showIconOnList != null),
-        assert(borderColor != null);
+  const ListTab({
+    this.icon,
+    required this.label,
+    this.borderRadius = const BorderRadius.all(const Radius.circular(5.0)),
+    this.activeBackgroundColor = Colors.blue,
+    this.inactiveBackgroundColor = Colors.transparent,
+    this.showIconOnList = false,
+    this.borderColor = Colors.grey,
+  });
 
   /// Trailing widget for a tab, typically an [Icon].
-  final Widget icon;
+  final Widget? icon;
 
   /// Label to be shown in the tab, must be non-null.
   final Widget label;

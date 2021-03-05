@@ -4,9 +4,10 @@ import 'list_tab.dart';
 class ScrollableListTab {
   /// A skeleton class to be used in order to build the scrollable list.
   /// [ScrollableListTab.tab] will be used on both tab bar and scrollable body.
-  ScrollableListTab({this.tab, this.body})
-      : assert(tab != null, body != null),
-        assert(body.shrinkWrap && body.physics is NeverScrollableScrollPhysics);
+  ScrollableListTab({
+    required this.tab,
+    required this.body,
+  }) : assert(body.shrinkWrap && body.physics is NeverScrollableScrollPhysics);
 
   /// A data class for tab properties
   final ListTab tab;

@@ -1,19 +1,19 @@
 name: scrollable_list_tabview
 description: A Flutter widget which syncronize a ScrollView and a custom tab view.
-version: 0.1.6
+version: 0.2.0-nullsafety
 repository: https://github.com/firatcetiner/scrollable_list_tabview
 issue_tracker: https://github.com/firatcetiner/scrollable_list_tabview/issues
 homepage: https://firatcetiner.github.io/scrollable_list_tabview
 documentation: https://github.com/firatcetiner/scrollable_list_tabview/blob/master/README.md
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  scrollable_positioned_list: ^0.1.8
+  scrollable_positioned_list: ^0.2.0-nullsafety.0
 
 dev_dependencies:
   flutter_test:
