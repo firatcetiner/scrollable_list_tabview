@@ -7,10 +7,10 @@ class ListTab {
       this.icon,
       @required this.label,
       this.borderRadius = const BorderRadius.all(const Radius.circular(5.0)),
-      this.activeBackgroundColor = Colors.blue,
+      this.activeBackgroundColor = Colors.transparent,
       this.inactiveBackgroundColor = Colors.transparent,
       this.showIconOnList = false,
-      this.borderColor = Colors.grey})
+      this.borderColor = Colors.transparent})
       : assert(label != null),
         assert(borderRadius != null),
         assert(activeBackgroundColor != null),
