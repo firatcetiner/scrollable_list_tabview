@@ -19,6 +19,7 @@ class ScrollableListTabView extends StatefulWidget {
   const ScrollableListTabView(
       {Key key,
       this.tabs,
+      this.tabBackgroundColor,
       this.tabHeight = kToolbarHeight,
       this.tabAnimationDuration = _kScrollDuration,
       this.bodyAnimationDuration = _kScrollDuration,
@@ -35,6 +36,9 @@ class ScrollableListTabView extends StatefulWidget {
 
   /// Height of the tab at the top of the view.
   final double tabHeight;
+
+  /// Background color of the tab at the top of the view.
+  final Color tabBackgroundColor;
 
   /// Duration of tab change animation.
   final Duration tabAnimationDuration;
@@ -72,12 +76,12 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
       children: [
         Container(
           height: widget.tabHeight,
-          color: Theme.of(context).cardColor,
+          color: widget.tabBackgroundColor,
           child: ScrollablePositionedList.builder(
             itemCount: widget.tabs.length,
             scrollDirection: Axis.horizontal,
             itemScrollController: _tabScrollController,
-            padding: EdgeInsets.symmetric(vertical: 2.5),
+            // padding: EdgeInsets.symmetric(vertical: 2.5),
             itemBuilder: (context, index) {
               var tab = widget.tabs[index].tab;
               return ValueListenableBuilder<int>(
