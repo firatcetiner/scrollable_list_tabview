@@ -21,6 +21,7 @@ class ScrollableListTabView extends StatefulWidget {
       this.tabs,
       this.tabBackgroundColor,
       this.tabPadding,
+      this.tabMargin,
       this.tabHeight = kToolbarHeight,
       this.tabAnimationDuration = _kScrollDuration,
       this.bodyAnimationDuration = _kScrollDuration,
@@ -40,6 +41,9 @@ class ScrollableListTabView extends StatefulWidget {
   
   /// Padding of the tab at the top of the view.
   final EdgeInsetsGeometry tabPadding;
+
+  /// Margin of the tab at the top of the view.
+  final EdgeInsetsGeometry tabMargin;
 
   /// Background color of the tab at the top of the view.
   final Color tabBackgroundColor;
@@ -82,6 +86,7 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
           height: widget.tabHeight,
           color: widget.tabBackgroundColor,
           padding: widget.tabPadding,
+          margin: widget.tabMargin,
           child: ScrollablePositionedList.builder(
             itemCount: widget.tabs.length,
             scrollDirection: Axis.horizontal,
