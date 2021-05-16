@@ -191,7 +191,7 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
 
   Widget _buildTab(int index) {
     var tab = widget.tabs[index].tab;
-    if (tab.icon == null) return tab.label;
+    if (tab.icon == null) return Container(child:tab.label,color:Colors.red);
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
