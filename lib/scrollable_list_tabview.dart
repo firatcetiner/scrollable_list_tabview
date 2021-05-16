@@ -105,7 +105,7 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
                     var selected = index == i;
                     var borderColor = selected
                         ? tab.activeBackgroundColor
-                        : Theme.of(context).dividerColor;
+                        : tab.borderColor;
                     return Container(
                       height: 32,
                       margin: _kTabMargin,
