@@ -114,7 +114,7 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
                               ? tab.activeBackgroundColor
                               : tab.inactiveBackgroundColor,
                           borderRadius: tab.borderRadius),
-                      child: OutlinedButton(
+                      child: TextButton(
                         style: ButtonStyle(
                             foregroundColor: MaterialStateProperty.all(
                                 selected ? Colors.white : Colors.grey),
