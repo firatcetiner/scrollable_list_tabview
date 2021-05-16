@@ -108,8 +108,10 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
                           ? tab.activeBackgroundColor
                           : tab.borderColor;
                       return Container(
-                        // height: 32,
-                        // margin: _kTabMargin,
+                        height: tab.tabItemHeight,
+                        width: tab.tabItemWidth,
+                        margin: tab.tabItemMargin,
+                        padding: tab.tabItemPadding,
                         decoration: BoxDecoration(
                             color: selected
                                 ? tab.activeBackgroundColor
