@@ -9,6 +9,7 @@ class ListTab {
       this.width,
       this.height,
       this.margin,
+      this.padding,
       this.borderRadius = const BorderRadius.all(const Radius.circular(5.0)),
       this.activeBackgroundColor = Colors.blue,
       this.inactiveBackgroundColor = Colors.transparent,
