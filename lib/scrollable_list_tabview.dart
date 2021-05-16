@@ -107,35 +107,37 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
                       var borderColor = selected
                           ? tab.activeBackgroundColor
                           : tab.borderColor;
-                      return Container(
-                        height: tab.tabItemHeight,
-                        width: tab.tabItemWidth,
-                        margin: tab.tabItemMargin,
-                        padding: tab.tabItemPadding,
-                        decoration: BoxDecoration(
-                            color: selected
-                                ? tab.activeBackgroundColor
-                                : tab.inactiveBackgroundColor,
-                            borderRadius: tab.borderRadius),
-                        child: TextButton(
-                          style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all(
-                                  selected ? Colors.white : Colors.grey),
-                              backgroundColor: MaterialStateProperty.all(
-                                  selected
-                                      ? tab.activeBackgroundColor
-                                      : tab.inactiveBackgroundColor),
-                              // tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                              // side: MaterialStateProperty.all(BorderSide(
-                              //   width: 1,
-                              //   color: borderColor,
-                              // )),
-                              elevation: MaterialStateProperty.all(0),
-                              shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                      borderRadius: tab.borderRadius))),
-                          child: _buildTab(index),
-                          onPressed: () => _onTabPressed(index),
+                      return Center(
+                        child: Container(
+                          height: tab.tabItemHeight,
+                          width: tab.tabItemWidth,
+                          margin: tab.tabItemMargin,
+                          padding: tab.tabItemPadding,
+                          decoration: BoxDecoration(
+                              color: selected
+                                  ? tab.activeBackgroundColor
+                                  : tab.inactiveBackgroundColor,
+                              borderRadius: tab.borderRadius),
+                          child: TextButton(
+                            style: ButtonStyle(
+                                foregroundColor: MaterialStateProperty.all(
+                                    selected ? Colors.white : Colors.grey),
+                                backgroundColor: MaterialStateProperty.all(
+                                    selected
+                                        ? tab.activeBackgroundColor
+                                        : tab.inactiveBackgroundColor),
+                                // tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                // side: MaterialStateProperty.all(BorderSide(
+                                //   width: 1,
+                                //   color: borderColor,
+                                // )),
+                                elevation: MaterialStateProperty.all(0),
+                                shape: MaterialStateProperty.all(
+                                    RoundedRectangleBorder(
+                                        borderRadius: tab.borderRadius))),
+                            child: _buildTab(index),
+                            onPressed: () => _onTabPressed(index),
+                          ),
                         ),
                       );
                     });
