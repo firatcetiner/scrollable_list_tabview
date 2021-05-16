@@ -19,6 +19,10 @@ class ScrollableListTabView extends StatefulWidget {
   const ScrollableListTabView(
       {Key key,
       this.tabs,
+      this.tabBackgroundColor,
+      this.tabPadding,
+      this.tabMargin,
+      this.tabWidth,
       this.tabHeight = kToolbarHeight,
       this.tabAnimationDuration = _kScrollDuration,
       this.bodyAnimationDuration = _kScrollDuration,
@@ -35,6 +39,18 @@ class ScrollableListTabView extends StatefulWidget {
 
   /// Height of the tab at the top of the view.
   final double tabHeight;
+
+  /// Width of the tab at the top of the view.
+  final double tabWidth;
+
+  /// Padding of the tab at the top of the view.
+  final EdgeInsetsGeometry tabPadding;
+
+  /// Margin of the tab at the top of the view.
+  final EdgeInsetsGeometry tabMargin;
+
+  /// Background color of the tab at the top of the view.
+  final Color tabBackgroundColor;
 
   /// Duration of tab change animation.
   final Duration tabAnimationDuration;
@@ -71,52 +87,62 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
     return Column(
       children: [
         Container(
+          width: widget.tabWidth,
           height: widget.tabHeight,
-          color: Theme.of(context).cardColor,
-          child: ScrollablePositionedList.builder(
-            itemCount: widget.tabs.length,
-            scrollDirection: Axis.horizontal,
-            itemScrollController: _tabScrollController,
-            padding: EdgeInsets.symmetric(vertical: 2.5),
-            itemBuilder: (context, index) {
-              var tab = widget.tabs[index].tab;
-              return ValueListenableBuilder<int>(
-                  valueListenable: _index,
-                  builder: (_, i, __) {
-                    var selected = index == i;
-                    var borderColor = selected
-                        ? tab.activeBackgroundColor
-                        : Theme.of(context).dividerColor;
-                    return Container(
-                      height: 32,
-                      margin: _kTabMargin,
-                      decoration: BoxDecoration(
-                          color: selected
-                              ? tab.activeBackgroundColor
-                              : tab.inactiveBackgroundColor,
-                          borderRadius: tab.borderRadius),
-                      child: OutlinedButton(
-                        style: ButtonStyle(
-                            foregroundColor: MaterialStateProperty.all(
-                                selected ? Colors.white : Colors.grey),
-                            backgroundColor: MaterialStateProperty.all(selected
-                                ? tab.activeBackgroundColor
-                                : tab.inactiveBackgroundColor),
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                            side: MaterialStateProperty.all(BorderSide(
-                              width: 1,
-                              color: borderColor,
-                            )),
-                            elevation: MaterialStateProperty.all(0),
-                            shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                    borderRadius: tab.borderRadius))),
-                        child: _buildTab(index),
-                        onPressed: () => _onTabPressed(index),
-                      ),
-                    );
-                  });
-            },
+          color: widget.tabBackgroundColor,
+          padding: widget.tabPadding,
+          margin: widget.tabMargin,
+          child: Container(
+            child: ScrollablePositionedList.builder(
+              itemCount: widget.tabs.length,
+              scrollDirection: Axis.horizontal,
+              itemScrollController: _tabScrollController,
+              // padding: EdgeInsets.symmetric(vertical: 2.5),
+              itemBuilder: (context, index) {
+                var tab = widget.tabs[index].tab;
+                return ValueListenableBuilder<int>(
+                    valueListenable: _index,
+                    builder: (_, i, __) {
+                      var selected = index == i;
+                      var borderColor = selected
+                          ? tab.activeBackgroundColor
+                          : tab.borderColor;
+                      return Center(
+                        child: Container(
+                          height: tab.tabItemHeight,
+                          width: tab.tabItemWidth,
+                          margin: tab.tabItemMargin,
+                          padding: tab.tabItemPadding,
+                          decoration: BoxDecoration(
+                              color: selected
+                                  ? tab.activeBackgroundColor
+                                  : tab.inactiveBackgroundColor,
+                              borderRadius: tab.borderRadius),
+                          child: TextButton(
+                            style: ButtonStyle(
+                                foregroundColor: MaterialStateProperty.all(
+                                    selected ? Colors.white : Colors.grey),
+                                backgroundColor: MaterialStateProperty.all(
+                                    selected
+                                        ? tab.activeBackgroundColor
+                                        : tab.inactiveBackgroundColor),
+                                // tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                // side: MaterialStateProperty.all(BorderSide(
+                                //   width: 1,
+                                //   color: borderColor,
+                                // )),
+                                elevation: MaterialStateProperty.all(0),
+                                shape: MaterialStateProperty.all(
+                                    RoundedRectangleBorder(
+                                        borderRadius: tab.borderRadius))),
+                            child: _buildTab(index),
+                            onPressed: () => _onTabPressed(index),
+                          ),
+                        ),
+                      );
+                    });
+              },
+            ),
           ),
         ),
         Expanded(
@@ -128,10 +154,10 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Padding(
-                  padding: _kTabMargin.add(const EdgeInsets.all(5.0)),
-                  child: _buildInnerTab(index),
-                ),
+                // Padding(
+                //   padding: _kTabMargin.add(const EdgeInsets.all(5.0)),
+                //   child: _buildInnerTab(index),
+                // ),
                 Flexible(
                   child: widget.tabs[index].body,
                 )
@@ -172,12 +198,12 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
 
   Widget _buildTab(int index) {
     var tab = widget.tabs[index].tab;
-    if (tab.icon == null) return tab.label;
+    if (tab.icon == null) return Container(child: tab.label);
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
-      children: [tab.icon, _kSizedBoxW8, tab.label],
+      children: [tab.icon, tab.label],
     );
   }
 

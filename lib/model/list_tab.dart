@@ -5,6 +5,10 @@ class ListTab {
   const ListTab(
       {Key key,
       this.icon,
+      this.tabItemHeight,
+      this.tabItemWidth,
+      this.tabItemMargin,
+      this.tabItemPadding,
       @required this.label,
       this.borderRadius = const BorderRadius.all(const Radius.circular(5.0)),
       this.activeBackgroundColor = Colors.blue,
@@ -23,6 +27,18 @@ class ListTab {
 
   /// Label to be shown in the tab, must be non-null.
   final Widget label;
+
+  /// Height of the tab item at the top of the view.
+  final double tabItemHeight;
+
+  /// Width of the tab item at the top of the view.
+  final double tabItemWidth;
+
+  /// Padding of the tab item at the top of the view.
+  final EdgeInsetsGeometry tabItemPadding;
+
+  /// Margin of the tab item at the top of the view.
+  final EdgeInsetsGeometry tabItemMargin;
 
   /// [BorderRadius] for the a tab at the bottom tab view.
   /// This won't affect the tab in the scrollable list.
