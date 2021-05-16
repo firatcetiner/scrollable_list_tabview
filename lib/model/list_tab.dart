@@ -10,7 +10,7 @@ class ListTab {
       this.activeBackgroundColor = Colors.blue,
       this.inactiveBackgroundColor = Colors.transparent,
       this.showIconOnList = false,
-      this.borderColor })
+      this.borderColor = Colors.grey})
       : assert(label != null),
         assert(borderRadius != null),
         assert(activeBackgroundColor != null),
