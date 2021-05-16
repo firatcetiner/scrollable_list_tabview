@@ -122,10 +122,10 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
                                 ? tab.activeBackgroundColor
                                 : tab.inactiveBackgroundColor),
                             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                            side: MaterialStateProperty.all(BorderSide(
-                              width: 1,
-                              color: borderColor,
-                            )),
+                            // side: MaterialStateProperty.all(BorderSide(
+                            //   width: 1,
+                            //   color: borderColor,
+                            // )),
                             elevation: MaterialStateProperty.all(0),
                             shape: MaterialStateProperty.all(
                                 RoundedRectangleBorder(
