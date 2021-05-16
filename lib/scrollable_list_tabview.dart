@@ -93,7 +93,6 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
           padding: widget.tabPadding,
           margin: widget.tabMargin,
           child: Container(
-            color: Colors.amber,
             child: ScrollablePositionedList.builder(
               itemCount: widget.tabs.length,
               scrollDirection: Axis.horizontal,
