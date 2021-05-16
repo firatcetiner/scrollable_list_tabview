@@ -6,6 +6,9 @@ class ListTab {
       {Key key,
       this.icon,
       @required this.label,
+      this.width,
+      this.height,
+      this.margin,
       this.borderRadius = const BorderRadius.all(const Radius.circular(5.0)),
       this.activeBackgroundColor = Colors.blue,
       this.inactiveBackgroundColor = Colors.transparent,
@@ -17,6 +20,19 @@ class ListTab {
         assert(inactiveBackgroundColor != null),
         assert(showIconOnList != null),
         assert(borderColor != null);
+
+
+  /// Height of the tab at the top of the view.
+  final double height;
+
+  /// Width of the tab at the top of the view.
+  final double width;
+
+  /// Padding of the tab at the top of the view.
+  final EdgeInsetsGeometry padding;
+
+  /// Margin of the tab at the top of the view.
+  final EdgeInsetsGeometry margin;
 
   /// Trailing widget for a tab, typically an [Icon].
   final Widget icon;

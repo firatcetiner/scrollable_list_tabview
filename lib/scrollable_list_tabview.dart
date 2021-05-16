@@ -42,7 +42,7 @@ class ScrollableListTabView extends StatefulWidget {
 
   /// Width of the tab at the top of the view.
   final double tabWidth;
-  
+
   /// Padding of the tab at the top of the view.
   final EdgeInsetsGeometry tabPadding;
 
@@ -103,12 +103,13 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
                   valueListenable: _index,
                   builder: (_, i, __) {
                     var selected = index == i;
-                    var borderColor = selected
-                        ? tab.activeBackgroundColor
-                        : tab.borderColor;
+                    var borderColor =
+                        selected ? tab.activeBackgroundColor : tab.borderColor;
                     return Container(
-                      height: 32,
-                      margin: _kTabMargin,
+                      height: tab.height,
+                      width: tab.width,
+                      margin: tab.margin,
+                      padding: tab.padding,
                       decoration: BoxDecoration(
                           color: selected
                               ? tab.activeBackgroundColor
@@ -196,7 +197,10 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
-      children: [tab.icon, _kSizedBoxW8, tab.label],
+      children: [
+        if (tab.icon != null) tab.icon,
+        tab.label,
+      ],
     );
   }
 
