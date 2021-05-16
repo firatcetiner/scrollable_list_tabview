@@ -196,7 +196,7 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
-      children: [tab.icon, _kSizedBoxW8, tab.label],
+      children: [tab.icon,  tab.label],
     );
   }
 
