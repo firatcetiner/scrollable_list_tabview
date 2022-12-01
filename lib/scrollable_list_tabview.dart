@@ -30,10 +30,12 @@ class ScrollableListTabView extends StatefulWidget {
     this.highlightColor,
     this.splashColor,
     this.headerView,
-    this.padding,
-    this.margin,
+    this.paddingBody,
+    this.marginBody,
     this.paddingTab,
     this.marginTab,
+    this.marginInnerTab,
+    this.paddingInnerTab,
     this.isMaxScroll = false,
     this.floating = false,
     this.pinned = false,
@@ -44,14 +46,16 @@ class ScrollableListTabView extends StatefulWidget {
     this.bodyAnimationCurve = Curves.decelerate,
   }) : super(key: key);
 
-  final EdgeInsetsGeometry? padding;
-  final EdgeInsetsGeometry? margin;
+  final EdgeInsetsGeometry? paddingBody;
+  final EdgeInsetsGeometry? marginBody;
   final Color? bgrTabColor;
   final Color? backgroundColor;
   final Color? highlightColor;
   final Color? splashColor;
   final EdgeInsetsGeometry? paddingTab;
   final EdgeInsetsGeometry? marginTab;
+  final EdgeInsetsGeometry? paddingInnerTab;
+  final EdgeInsetsGeometry? marginInnerTab;
 
   /// List of tabs to be rendered.
   final List<ScrollableListTab> tabs;
@@ -113,7 +117,7 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
   @override
   Widget build(BuildContext context) {
     return NestedScrollView(
-      physics: const AlwaysScrollableScrollPhysics(),
+      physics: const ClampingScrollPhysics(),
       controller: _controller,
       headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
         return [
@@ -142,8 +146,8 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
         ];
       },
       body: Container(
-        padding: widget.padding ?? EdgeInsets.zero,
-        margin: widget.margin ?? EdgeInsets.only(top: 48),
+        padding: widget.paddingBody ?? EdgeInsets.zero,
+        margin: widget.marginBody ?? EdgeInsets.only(top: 48),
         height: MediaQuery.of(context).size.height,
         child: ScrollablePositionedList.builder(
           itemScrollController: _bodyScrollController,
@@ -153,11 +157,7 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Padding(
-                padding:
-                    widget.padding ?? kTabMargin.add(const EdgeInsets.all(5.0)),
-                child: _buildInnerTab(index),
-              ),
+              _buildInnerTab(index),
               Flexible(
                 child: widget.tabs[index].body,
               ),
@@ -169,12 +169,9 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
   }
 
   Widget _buildTabBar() {
-    final dividerColor = Theme.of(context).dividerColor;
     return Container(
       height: widget.tabHeight,
-      color: widget.bgrTabColor ?? Theme.of(context).cardColor,
-      padding: widget.padding ?? EdgeInsets.zero,
-      margin: widget.margin ?? EdgeInsets.zero,
+      padding: widget.paddingTab ?? EdgeInsets.zero,
       child: ScrollablePositionedList.builder(
         itemCount: widget.tabs.length,
         scrollDirection: Axis.horizontal,
@@ -186,44 +183,20 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
             valueListenable: _index,
             builder: (_, i, __) {
               final selected = index == i;
-              final borderColor =
-                  selected ? tab.activeBackgroundColor : dividerColor;
-              return Container(
-                height: 32,
-                margin: widget.marginTab ?? kTabMargin,
-                padding: widget.paddingTab ?? EdgeInsets.zero,
-                decoration: BoxDecoration(
-                  color: selected
-                      ? tab.activeBackgroundColor
-                      : tab.inactiveBackgroundColor,
-                  borderRadius: tab.borderRadius,
-                ),
-                child: OutlinedButton(
-                  style: ButtonStyle(
-                    foregroundColor: MaterialStateProperty.all<Color>(
-                      selected ? Colors.white : Colors.grey,
-                    ),
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                      selected
-                          ? tab.activeBackgroundColor
-                          : tab.inactiveBackgroundColor,
-                    ),
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    side: MaterialStateProperty.all<BorderSide>(
-                      BorderSide(
-                        width: 1,
-                        color: borderColor,
-                      ),
-                    ),
-                    elevation: MaterialStateProperty.all<double>(0.0),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: tab.borderRadius,
-                      ),
-                    ),
+              return GestureDetector(
+                onTap: () => _onTabPressed(index),
+                child: Container(
+                  margin: widget.marginInnerTab ??
+                      const EdgeInsets.symmetric(horizontal: 4),
+                  padding: widget.paddingInnerTab ??
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: selected
+                        ? tab.activeBackgroundColor
+                        : tab.inactiveBackgroundColor,
+                    borderRadius: tab.borderRadius,
                   ),
                   child: _buildTab(index, selected),
-                  onPressed: () => _onTabPressed(index),
                 ),
               );
             },
@@ -237,31 +210,19 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
     final tab = widget.tabs[index].tab;
     return Builder(
       builder: (_) {
-        return DefaultTextStyle(
-          style: widget.style,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [tab.title],
-          ),
-        );
+        return tab.title;
       },
     );
   }
 
   Widget _buildTab(int index, bool selected) {
     final tab = widget.tabs[index].tab;
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          tab.labelTab,
-          style: tab.labelStyle ?? TextStyle(),
-        )
-      ],
+    return Align(
+      alignment: Alignment.center,
+      child: Text(
+        tab.labelTab,
+        style: tab.labelStyle ?? TextStyle(),
+      ),
     );
   }
 

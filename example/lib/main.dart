@@ -43,11 +43,16 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Container(
         height:MediaQuery.of(context).size.height,
         child: ScrollableListTabView(
+          backgroundColor: Colors.white,
           automaticallyImplyLeading:false,
           pinned: true,
+          paddingBody:EdgeInsets.symmetric(horizontal:16),
+          paddingTab:EdgeInsets.symmetric(horizontal:12),
           floating:true,
-          expandedHeight: 250,
-          tabHeight: 48,
+          expandedHeight: 270,
+          tabHeight: 37,
+          highlightColor: Colors.white,
+          splashColor: Colors.white,
           bgrTabColor: Colors.amber,
           bodyAnimationDuration: const Duration(milliseconds: 150),
           tabAnimationCurve: Curves.easeOut,
@@ -56,23 +61,16 @@ class _MyHomePageState extends State<MyHomePage> {
             ScrollableListTab(
               tab: ListTab(
                 labelTab: 'Label 1',
-                title: Text('Bất động sản') ,
+                title: Text('Bất động sản'),
+                activeBackgroundColor:Colors.blue,
+                inactiveBackgroundColor:Colors.red,
               ),
               body: ListView.builder(
                 shrinkWrap: true,
+                padding: EdgeInsets.zero,
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: 5,
                 itemBuilder: (_, index) => ListTile(
-                  leading: Container(
-                    height: 40,
-                    width: 40,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.grey,
-                    ),
-                    alignment: Alignment.center,
-                    child: Text(index.toString()),
-                  ),
                   title: Text('List element $index'),
                 ),
               ),
