@@ -25,11 +25,16 @@ class ScrollableListTabView extends StatefulWidget {
       color: Colors.black,
       fontWeight: FontWeight.w500,
     ),
+    this.padding,
+    this.margin,
     this.tabAnimationDuration = kScrollDuration,
     this.bodyAnimationDuration = kScrollDuration,
     this.tabAnimationCurve = Curves.decelerate,
     this.bodyAnimationCurve = Curves.decelerate,
   }) : super(key: key);
+
+  final EdgeInsetsGeometry? padding;
+  final EdgeInsetsGeometry? margin;
 
   /// List of tabs to be rendered.
   final List<ScrollableListTab> tabs;
@@ -93,7 +98,8 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
                       selected ? tab.activeBackgroundColor : dividerColor;
                   return Container(
                     height: 32,
-                    margin: kTabMargin,
+                    margin: widget.margin ?? kTabMargin,
+                    padding: widget.padding ?? EdgeInsets.zero,
                     decoration: BoxDecoration(
                       color: selected
                           ? tab.activeBackgroundColor
@@ -144,7 +150,8 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Padding(
-                  padding: kTabMargin.add(const EdgeInsets.all(5.0)),
+                  padding: widget.padding ??
+                      kTabMargin.add(const EdgeInsets.all(5.0)),
                   child: _buildInnerTab(index),
                 ),
                 Flexible(
@@ -162,17 +169,13 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
     final tab = widget.tabs[index].tab;
     return Builder(
       builder: (_) {
-        if (tab.icon == null)
-          return tab.label;
-        else if (!tab.showIconOnList)
-          return DefaultTextStyle(style: widget.style, child: tab.label);
         return DefaultTextStyle(
           style: widget.style,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
-            children: [_tabIcon(tab.icon), tab.label],
+            children: [tab.title],
           ),
         );
       },
@@ -185,17 +188,8 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
-      children: [_tabIcon(tab.icon), tab.label],
+      children: [tab.labelTab],
     );
-  }
-
-  Widget _tabIcon(Widget? icon) {
-    return icon != null
-        ? Padding(
-            padding: const EdgeInsets.only(right: 8),
-            child: icon,
-          )
-        : const SizedBox(height: 0, width: 0);
   }
 
   void _onInnerViewScrolled() async {
