@@ -81,7 +81,7 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
       children: [
         Container(
           height: widget.tabHeight,
-          padding:EdgeInsets.only(top:widget.tabHeight),
+          margin:EdgeInsets.only(top:40),
           color: Theme.of(context).cardColor,
           child: ScrollablePositionedList.builder(
             itemCount: widget.tabs.length,
