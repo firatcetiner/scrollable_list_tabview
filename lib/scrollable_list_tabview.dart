@@ -1,6 +1,5 @@
 library scrollable_list_tabview;
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'model/scrollable_list_tab.dart';
@@ -82,6 +81,7 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
       children: [
         Container(
           height: widget.tabHeight,
+          padding:EdgeInsets.only(top:widget.tabHeight),
           color: Theme.of(context).cardColor,
           child: ScrollablePositionedList.builder(
             itemCount: widget.tabs.length,
