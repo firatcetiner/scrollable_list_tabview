@@ -5,6 +5,7 @@ class ListTab {
   const ListTab({
     required this.labelTab,
     required this.title,
+    this.labelStyle,
     this.padding,
     this.margin,
     this.borderRadius = const BorderRadius.all(const Radius.circular(5.0)),
@@ -16,7 +17,9 @@ class ListTab {
   /// Trailing widget for a tab, typically an [Icon].
 
   /// Label to be shown in the tab, must be non-null.
-  final Widget labelTab;
+  final String labelTab;
+
+  final TextStyle? labelStyle;
 
   final Widget title;
 
