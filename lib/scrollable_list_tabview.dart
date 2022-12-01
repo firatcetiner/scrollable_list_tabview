@@ -1,6 +1,5 @@
 library scrollable_list_tabview;
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'model/scrollable_list_tab.dart';
@@ -21,21 +20,57 @@ class ScrollableListTabView extends StatefulWidget {
     Key? key,
     required this.tabs,
     this.tabHeight = kToolbarHeight,
+    this.expandedHeight = kToolbarHeight,
     this.style = const TextStyle(
       color: Colors.black,
       fontWeight: FontWeight.w500,
     ),
+    this.bgrTabColor,
+    this.backgroundColor,
+    this.highlightColor,
+    this.splashColor,
+    this.headerView,
+    this.paddingBody,
+    this.marginBody,
+    this.paddingTab,
+    this.marginTab,
+    this.marginInnerTab,
+    this.paddingInnerTab,
+    this.isMaxScroll = false,
+    this.floating = false,
+    this.pinned = false,
+    this.automaticallyImplyLeading = true,
     this.tabAnimationDuration = kScrollDuration,
     this.bodyAnimationDuration = kScrollDuration,
     this.tabAnimationCurve = Curves.decelerate,
     this.bodyAnimationCurve = Curves.decelerate,
   }) : super(key: key);
 
+  final EdgeInsetsGeometry? paddingBody;
+  final EdgeInsetsGeometry? marginBody;
+  final Color? bgrTabColor;
+  final Color? backgroundColor;
+  final Color? highlightColor;
+  final Color? splashColor;
+  final EdgeInsetsGeometry? paddingTab;
+  final EdgeInsetsGeometry? marginTab;
+  final EdgeInsetsGeometry? paddingInnerTab;
+  final EdgeInsetsGeometry? marginInnerTab;
+
   /// List of tabs to be rendered.
   final List<ScrollableListTab> tabs;
 
   /// Height of the tab at the top of the view.
   final double tabHeight;
+
+  final double expandedHeight;
+
+  final bool isMaxScroll;
+  final bool floating;
+  final bool pinned;
+  final bool automaticallyImplyLeading;
+
+  final Widget? headerView;
 
   /// Duration of tab change animation.
   final TextStyle style;
@@ -64,97 +99,110 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
       ItemPositionsListener.create();
   final ItemScrollController _tabScrollController = ItemScrollController();
 
+  final SliverOverlapAbsorberHandle appBar = SliverOverlapAbsorberHandle();
+
+  final ScrollController _controller = ScrollController();
+
   @override
   void initState() {
     super.initState();
     _bodyPositionsListener.itemPositions.addListener(_onInnerViewScrolled);
+    _controller.addListener(_onScroll);
+  }
+
+  _onScroll() {
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    final dividerColor = Theme.of(context).dividerColor;
-    return Column(
-      children: [
-        Container(
-          height: widget.tabHeight,
-          color: Theme.of(context).cardColor,
-          child: ScrollablePositionedList.builder(
-            itemCount: widget.tabs.length,
-            scrollDirection: Axis.horizontal,
-            itemScrollController: _tabScrollController,
-            padding: const EdgeInsets.symmetric(vertical: 2.5),
-            itemBuilder: (context, index) {
-              final tab = widget.tabs[index].tab;
-              return ValueListenableBuilder<int>(
-                valueListenable: _index,
-                builder: (_, i, __) {
-                  final selected = index == i;
-                  final borderColor =
-                      selected ? tab.activeBackgroundColor : dividerColor;
-                  return Container(
-                    height: 32,
-                    margin: kTabMargin,
-                    decoration: BoxDecoration(
-                      color: selected
-                          ? tab.activeBackgroundColor
-                          : tab.inactiveBackgroundColor,
-                      borderRadius: tab.borderRadius,
-                    ),
-                    child: OutlinedButton(
-                      style: ButtonStyle(
-                        foregroundColor: MaterialStateProperty.all<Color>(
-                          selected ? Colors.white : Colors.grey,
-                        ),
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                          selected
-                              ? tab.activeBackgroundColor
-                              : tab.inactiveBackgroundColor,
-                        ),
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        side: MaterialStateProperty.all<BorderSide>(
-                          BorderSide(
-                            width: 1,
-                            color: borderColor,
-                          ),
-                        ),
-                        elevation: MaterialStateProperty.all<double>(0.0),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: tab.borderRadius,
-                          ),
-                        ),
-                      ),
-                      child: _buildTab(index),
-                      onPressed: () => _onTabPressed(index),
-                    ),
-                  );
-                },
-              );
-            },
-          ),
-        ),
-        Flexible(
-          child: ScrollablePositionedList.builder(
-            itemScrollController: _bodyScrollController,
-            itemPositionsListener: _bodyPositionsListener,
-            itemCount: widget.tabs.length,
-            itemBuilder: (_, index) => Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Padding(
-                  padding: kTabMargin.add(const EdgeInsets.all(5.0)),
-                  child: _buildInnerTab(index),
+    return NestedScrollView(
+      physics: const ClampingScrollPhysics(),
+      controller: _controller,
+      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+        return [
+          SliverOverlapAbsorber(
+            handle: appBar,
+            sliver: SliverAppBar(
+              backgroundColor: widget.backgroundColor,
+              automaticallyImplyLeading: widget.automaticallyImplyLeading,
+              elevation: 0,
+              pinned: widget.pinned,
+              floating: widget.floating,
+              expandedHeight: widget.expandedHeight,
+              flexibleSpace: widget.headerView ?? const SizedBox(),
+              bottom: PreferredSize(
+                preferredSize: Size.fromHeight(widget.tabHeight),
+                child: Theme(
+                  data: Theme.of(context).copyWith(
+                    highlightColor: widget.highlightColor ?? Colors.blueAccent,
+                    splashColor: widget.splashColor ?? Colors.blueAccent,
+                  ),
+                  child: _buildTabBar(),
                 ),
-                Flexible(
-                  child: widget.tabs[index].body,
-                ),
-              ],
+              ),
             ),
           ),
+        ];
+      },
+      body: Container(
+        padding: widget.paddingBody ?? EdgeInsets.zero,
+        margin: widget.marginBody ?? EdgeInsets.only(top: 48),
+        height: MediaQuery.of(context).size.height,
+        child: ScrollablePositionedList.builder(
+          itemScrollController: _bodyScrollController,
+          itemPositionsListener: _bodyPositionsListener,
+          itemCount: widget.tabs.length,
+          itemBuilder: (_, index) => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _buildInnerTab(index),
+              Flexible(
+                child: widget.tabs[index].body,
+              ),
+            ],
+          ),
         ),
-      ],
+      ),
+    );
+  }
+
+  Widget _buildTabBar() {
+    return Container(
+      height: widget.tabHeight,
+      padding: widget.paddingTab ?? EdgeInsets.zero,
+      child: ScrollablePositionedList.builder(
+        itemCount: widget.tabs.length,
+        scrollDirection: Axis.horizontal,
+        itemScrollController: _tabScrollController,
+        padding: const EdgeInsets.symmetric(vertical: 2.5),
+        itemBuilder: (context, index) {
+          final tab = widget.tabs[index].tab;
+          return ValueListenableBuilder<int>(
+            valueListenable: _index,
+            builder: (_, i, __) {
+              final selected = index == i;
+              return GestureDetector(
+                onTap: () => _onTabPressed(index),
+                child: Container(
+                  margin: widget.marginInnerTab ??
+                      const EdgeInsets.symmetric(horizontal: 4),
+                  padding: widget.paddingInnerTab ??
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: selected
+                        ? tab.activeBackgroundColor
+                        : tab.inactiveBackgroundColor,
+                    borderRadius: tab.borderRadius,
+                  ),
+                  child: _buildTab(index, selected),
+                ),
+              );
+            },
+          );
+        },
+      ),
     );
   }
 
@@ -162,40 +210,20 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
     final tab = widget.tabs[index].tab;
     return Builder(
       builder: (_) {
-        if (tab.icon == null)
-          return tab.label;
-        else if (!tab.showIconOnList)
-          return DefaultTextStyle(style: widget.style, child: tab.label);
-        return DefaultTextStyle(
-          style: widget.style,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [_tabIcon(tab.icon), tab.label],
-          ),
-        );
+        return tab.title;
       },
     );
   }
 
-  Widget _buildTab(int index) {
+  Widget _buildTab(int index, bool selected) {
     final tab = widget.tabs[index].tab;
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      children: [_tabIcon(tab.icon), tab.label],
+    return Align(
+      alignment: Alignment.center,
+      child: Text(
+        tab.labelTab,
+        style: tab.labelStyle ?? TextStyle(),
+      ),
     );
-  }
-
-  Widget _tabIcon(Widget? icon) {
-    return icon != null
-        ? Padding(
-            padding: const EdgeInsets.only(right: 8),
-            child: icon,
-          )
-        : const SizedBox(height: 0, width: 0);
   }
 
   void _onInnerViewScrolled() async {
@@ -215,6 +243,10 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
 
   Future<void> _handleTabScroll(int index) async {
     _index.value = index;
+
+    if (widget.isMaxScroll) {
+      _index.value = widget.tabs.length - 1;
+    }
     await _tabScrollController.scrollTo(
       index: _index.value,
       duration: widget.tabAnimationDuration,
@@ -241,6 +273,7 @@ class _ScrollableListTabViewState extends State<ScrollableListTabView> {
   @override
   void dispose() {
     _bodyPositionsListener.itemPositions.removeListener(_onInnerViewScrolled);
+    _controller.removeListener(_onScroll);
     return super.dispose();
   }
 }

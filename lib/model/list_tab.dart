@@ -3,20 +3,29 @@ import 'package:flutter/material.dart';
 class ListTab {
   /// Create a new [ListTab]
   const ListTab({
-    this.icon,
-    required this.label,
+    required this.labelTab,
+    required this.title,
+    this.labelStyle,
+    this.padding,
+    this.margin,
     this.borderRadius = const BorderRadius.all(const Radius.circular(5.0)),
     this.activeBackgroundColor = Colors.blue,
-    this.inactiveBackgroundColor = Colors.transparent,
-    this.showIconOnList = false,
+    this.inactiveBackgroundColor = Colors.amber,
     this.borderColor = Colors.grey,
   });
 
   /// Trailing widget for a tab, typically an [Icon].
-  final Widget? icon;
 
   /// Label to be shown in the tab, must be non-null.
-  final Widget label;
+  final String labelTab;
+
+  final TextStyle? labelStyle;
+
+  final Widget title;
+
+  final EdgeInsetsGeometry? padding;
+
+  final EdgeInsetsGeometry? margin;
 
   /// [BorderRadius] for the a tab at the bottom tab view.
   /// This won't affect the tab in the scrollable list.
@@ -29,7 +38,6 @@ class ListTab {
   final Color inactiveBackgroundColor;
 
   /// If true, the [icon] will also be shown to the user in the scrollable list.
-  final bool showIconOnList;
 
   /// Color of the [Border] property of the inner tab [Container].
   final Color borderColor;
